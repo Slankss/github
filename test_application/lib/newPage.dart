@@ -1,12 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:test_application/Models/ResponsePokemon.dart';
 import 'package:test_application/Models/httpService.dart';
 
-import 'Models/Pokemonlar.dart';
-
-
+import 'Models/Pokemon.dart';
 
 class newPage extends StatefulWidget {
   @override
@@ -33,11 +29,11 @@ class _newPageState extends State<newPage> {
   Widget buildBody(BuildContext context) {
     return FutureBuilder(
       future: _httpService.getPosts(),
-      builder: (BuildContext context, AsyncSnapshot<List<Pokemonlar>> snapshot){
+      builder: (BuildContext context, AsyncSnapshot<ResponsePokemon> snapshot){
         if(snapshot.hasData){
-          List<Pokemonlar> pokemon = snapshot.data;
+          List<Pokemon> pokemon = snapshot.data.results;
           return ListView(
-           children: pokemon.map((Pokemonlar _pokemon) => ListTile(
+           children: pokemon.map((Pokemon _pokemon) => ListTile(
              title: Text(_pokemon.name),
            )
            ).toList(),
